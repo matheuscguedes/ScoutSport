@@ -1,10 +1,6 @@
 ﻿using ScoutSport.Data;
 using ScoutSport.Models;
-using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace ScoutSport.Forms
 {
@@ -191,7 +187,7 @@ namespace ScoutSport.Forms
             DestacarVencedor();
         }
 
-       
+
 
         void DestacarVencedor()
         {// método para destacar o jogador com a melhor média de nota final, colorindo a célula correspondente

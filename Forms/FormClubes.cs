@@ -1,8 +1,5 @@
 ﻿using ScoutSport.Data;
 using ScoutSport.Models;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace ScoutSport.Forms
 {
@@ -227,6 +224,6 @@ namespace ScoutSport.Forms
             idClubeSelecionado = 0;
             txtNome.Focus();
         }
-       
+
     }
 }

@@ -1,7 +1,4 @@
 ﻿using ScoutSport.Data;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace ScoutSport.Forms
 {

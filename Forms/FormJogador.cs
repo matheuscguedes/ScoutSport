@@ -1,8 +1,5 @@
 ﻿using ScoutSport.Data;
 using ScoutSport.Models;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace ScoutSport.Forms
 {
@@ -259,7 +256,7 @@ namespace ScoutSport.Forms
             jogador.DataNascimento = dtpNascimento.Value;
             jogador.Nacionalidade = txtNacionalidade.Text.Trim();
             jogador.Posicao = txtPosicao.Text.Trim();
-            
+
             if (!string.IsNullOrWhiteSpace(txtAltura.Text))
                 jogador.Altura = Convert.ToDecimal(txtAltura.Text);
 

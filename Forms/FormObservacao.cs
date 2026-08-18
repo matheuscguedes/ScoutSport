@@ -1,8 +1,5 @@
 ﻿using ScoutSport.Data;
 using ScoutSport.Models;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace ScoutSport.Forms
 {
@@ -61,7 +58,7 @@ namespace ScoutSport.Forms
         private void btnEditar_Click(object sender, EventArgs e)
         {
             using var db = new AppDbContext();
-            
+
             try
             {
                 if (dgvObservacao.SelectedRows.Count == 0)

@@ -11,7 +11,7 @@
         public decimal Atitude { get; set; }
         public string? Potencial { get; set; }
 
-        public decimal NotaFinal {  get; set; }
-       
+        public decimal NotaFinal { get; set; }
+
     }
 }

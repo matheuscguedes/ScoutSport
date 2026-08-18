@@ -112,7 +112,7 @@
             Controls.Add(lblTitulo);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormHistoricoJogador";
-            Text = "Volta Redonda Futebol Clube";
+            Text = "ScoutSport";
             ((System.ComponentModel.ISupportInitialize)dgvHistoricoObservacao).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvHistoricoAvaliacao).EndInit();
             ResumeLayout(false);

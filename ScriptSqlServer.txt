@@ -1,0 +1,259 @@
+﻿USE [ScoutSportDB];
+GO
+
+SET XACT_ABORT ON;
+
+BEGIN TRY
+    BEGIN TRANSACTION;
+
+    /* ============================================================
+       LIMPEZA
+       Ordem necessária por causa das chaves estrangeiras.
+       ============================================================ */
+
+    DELETE FROM dbo.Avaliacoes;
+    DELETE FROM dbo.Observacoes;
+    DELETE FROM dbo.Jogadores;
+    DELETE FROM dbo.Clubes;
+
+    /* Reinicia os campos IdENTITY para começarem em 1. */
+    DBCC CHECKIDENT ('dbo.Avaliacoes', RESEED, 0);
+    DBCC CHECKIDENT ('dbo.Observacoes', RESEED, 0);
+    DBCC CHECKIDENT ('dbo.Jogadores', RESEED, 0);
+    DBCC CHECKIDENT ('dbo.Clubes', RESEED, 0);
+
+    /* ============================================================
+       CLUBES
+       Colunas: Id, Nome, Pais, Cidade
+       ============================================================ */
+
+    INSERT INTO dbo.Clubes (Nome, Pais, Cidade)
+    VALUES
+        (N'Flamengo',            N'Brasil',    N'Rio de Janeiro'),
+        (N'Palmeiras',           N'Brasil',    N'São Paulo'),
+        (N'Volta Redonda',       N'Brasil',    N'Volta Redonda'),
+        (N'Benfica',             N'Portugal',  N'Lisboa'),
+        (N'Porto',               N'Portugal',  N'Porto'),
+        (N'Sporting',            N'Portugal',  N'Lisboa'),
+        (N'Real Madrid',         N'Espanha',   N'Madrid'),
+        (N'Barcelona',           N'Espanha',   N'Barcelona');
+
+    /* ============================================================
+       JOGADORES
+       Colunas:
+       Id, ClubeId, Nome, DataNascimento, Nacionalidade,
+       Posicao, Altura, Peso
+       ============================================================ */
+
+    INSERT INTO dbo.Jogadores
+        (ClubeId, Nome, DataNascimento, Nacionalidade, Posicao, Altura, Peso)
+    VALUES
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Flamengo'),
+         N'Lucas Andrade', '2001-03-12', N'Brasileiro', N'Atacante', 1.80, 76.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Flamengo'),
+         N'Gabriel Souza', '2000-09-25', N'Brasileiro', N'Meia', 1.75, 70.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Palmeiras'),
+         N'Matheus Lima', '2002-01-18', N'Brasileiro', N'Zagueiro', 1.88, 83.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Palmeiras'),
+         N'Rafael Santos', '2001-07-04', N'Brasileiro', N'Volante', 1.82, 78.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Volta Redonda'),
+         N'Pedro Henrique', '2003-11-20', N'Brasileiro', N'Atacante', 1.79, 74.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Benfica'),
+         N'João Martins', '2002-05-15', N'Português', N'Meia', 1.77, 72.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Porto'),
+         N'Miguel Silva', '2000-08-09', N'Português', N'Goleiro', 1.92, 88.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Sporting'),
+         N'Tiago Ferreira', '2003-02-27', N'Português', N'Lateral', 1.74, 69.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Real Madrid'),
+         N'Carlos García', '2001-12-03', N'Espanhol', N'Atacante', 1.83, 77.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Real Madrid'),
+         N'Diego López', '2002-06-22', N'Espanhol', N'Zagueiro', 1.89, 84.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Barcelona'),
+         N'Álvaro Ruiz', '2003-04-10', N'Espanhol', N'Meia', 1.76, 71.00),
+
+        ((SELECT Id FROM dbo.Clubes WHERE Nome = N'Barcelona'),
+         N'Sergio Navarro', '2001-10-30', N'Espanhol', N'Lateral', 1.78, 73.00);
+
+    /* ============================================================
+       OBSERVAÇÕES
+       Colunas:
+       Id, JogadorId, DataObservacao, Adversario,
+       Competicao, PosicaoObservada, Comentario
+       ============================================================ */
+
+    INSERT INTO dbo.Observacoes
+        (JogadorId, DataObservacao, Adversario, Competicao,
+         PosicaoObservada, Comentario)
+    VALUES
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Lucas Andrade'),
+         '2026-01-15T17:36:47', N'Volta Redonda',
+         N'Campeonato Carioca', N'Atacante',
+         N'Bom cabeceador e veloz.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Gabriel Souza'),
+         '2026-01-20T20:00:00', N'Botafogo',
+         N'Campeonato Carioca', N'Meia',
+         N'Boa visão de jogo e qualidade no passe.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Matheus Lima'),
+         '2026-02-02T16:00:00', N'Santos',
+         N'Campeonato Paulista', N'Zagueiro',
+         N'Forte no jogo aéreo e seguro na marcação.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Rafael Santos'),
+         '2026-02-08T18:30:00', N'Corinthians',
+         N'Campeonato Paulista', N'Volante',
+         N'Boa recuperação de bola e intensidade.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Pedro Henrique'),
+         '2026-02-15T15:00:00', N'Fluminense',
+         N'Campeonato Carioca', N'Atacante',
+         N'Rápido, bom posicionamento e finalização.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'João Martins'),
+         '2026-02-21T20:45:00', N'Braga',
+         N'Liga Portugal', N'Meia',
+         N'Criativo e eficiente nas bolas paradas.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Miguel Silva'),
+         '2026-03-01T21:15:00', N'Benfica',
+         N'Liga Portugal', N'Goleiro',
+         N'Boa reposição de bola e excelentes reflexos.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Tiago Ferreira'),
+         '2026-03-07T19:00:00', N'Porto',
+         N'Liga Portugal', N'Lateral',
+         N'Apoia bem o ataque e possui boa resistência.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Carlos García'),
+         '2026-03-14T20:00:00', N'Sevilla',
+         N'La Liga', N'Atacante',
+         N'Excelente movimentação e precisão na finalização.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Diego López'),
+         '2026-03-20T21:00:00', N'Atlético de Madrid',
+         N'La Liga', N'Zagueiro',
+         N'Bom posicionamento defensivo e liderança.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Álvaro Ruiz'),
+         '2026-03-28T18:30:00', N'Valencia',
+         N'La Liga', N'Meia',
+         N'Técnico, criativo e ágil em espaços curtos.'),
+
+        ((SELECT Id FROM dbo.Jogadores WHERE Nome = N'Sergio Navarro'),
+         '2026-04-04T17:00:00', N'Villarreal',
+         N'La Liga', N'Lateral',
+         N'Veloz e consistente nas ações defensivas.');
+
+    /* ============================================================
+       AVALIAÇÕES
+       Colunas:
+       Id, ObservacaoId, Tecnica, Velocidade, InteligenciaTatica,
+       Fisico, Atitude, Potencial, NotaFinal
+       ============================================================ */
+
+    INSERT INTO dbo.Avaliacoes
+        (ObservacaoId, Tecnica, Velocidade, InteligenciaTatica,
+         Fisico, Atitude, Potencial, NotaFinal)
+    VALUES
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Lucas Andrade'),
+         16.00, 18.00, 15.00, 16.00, 17.00, N'Elevado', 16.40),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Gabriel Souza'),
+         17.00, 15.00, 18.00, 14.00, 16.00, N'Elevado', 16.00),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Matheus Lima'),
+         14.00, 13.00, 17.00, 18.00, 16.00, N'Elevado', 15.60),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Rafael Santos'),
+         15.00, 15.00, 17.00, 17.00, 18.00, N'Elevado', 16.40),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Pedro Henrique'),
+         16.00, 19.00, 15.00, 15.00, 16.00, N'Muito elevado', 16.20),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'João Martins'),
+         18.00, 16.00, 18.00, 14.00, 17.00, N'Muito elevado', 16.60),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Miguel Silva'),
+         15.00, 13.00, 17.00, 18.00, 18.00, N'Elevado', 16.20),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Tiago Ferreira'),
+         15.00, 18.00, 16.00, 17.00, 17.00, N'Elevado', 16.60),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Carlos García'),
+         18.00, 18.00, 17.00, 16.00, 17.00, N'Muito elevado', 17.20),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Diego López'),
+         14.00, 14.00, 18.00, 19.00, 18.00, N'Elevado', 16.60),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Álvaro Ruiz'),
+         19.00, 17.00, 18.00, 14.00, 16.00, N'Muito elevado', 16.80),
+
+        ((SELECT O.Id
+          FROM dbo.Observacoes O
+          INNER JOIN dbo.Jogadores J ON J.Id = O.JogadorId
+          WHERE J.Nome = N'Sergio Navarro'),
+         15.00, 18.00, 16.00, 16.00, 17.00, N'Elevado', 16.40);
+
+    COMMIT TRANSACTION;
+
+    PRINT N'Todas as tabelas foram preenchidas com sucesso.';
+
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+
+    THROW;
+END CATCH;
+GO
+
+/* Conferência dos dados inseridos. */
+
+SELECT * FROM dbo.Clubes;
+SELECT * FROM dbo.Jogadores;
+SELECT * FROM dbo.Observacoes;
+SELECT * FROM dbo.Avaliacoes;

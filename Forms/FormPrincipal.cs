@@ -1,7 +1,4 @@
-using Microsoft.Data.SqlClient;
-using ScoutSport.Data;
 using ScoutSport.Forms;
-using System;
 
 namespace WinFormsApp1
 {

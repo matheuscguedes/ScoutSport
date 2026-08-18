@@ -69,7 +69,7 @@ Server=(localdb)\MSSQLLocalDB;Database=ScoutSportDb;Trusted_Connection=True;Trus
 Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/matheuscguedes/ScoutSport.git
 ```
 
 Entre na pasta do projeto:
@@ -89,6 +89,24 @@ Execute a aplicação:
 ```bash
 dotnet run
 ```
+
+## Screenshots
+
+### Tela principal
+
+![Tela principal do ScoutSport](Imagens/TelePrincipal.png)
+
+### Gestão de jogadores
+
+![Gestão de jogadores](Imagens/TelaJogadores.png)
+
+### Avaliação de jogador
+
+![Avaliação de jogador](Imagens/TelaAvaliacao.png)
+
+### Comparação entre jogadores
+
+![Comparação entre jogadores](Imagens/TelaComparacao.png)
 
 ## Evolução do Projeto
 

@@ -163,7 +163,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "FormPrincipal";
-            Text = "Volta Redonda Futebol Clube";
+            Text = "ScoutSport";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ptbVoltaco).EndInit();

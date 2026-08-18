@@ -1,8 +1,5 @@
 ﻿using ScoutSport.Data;
 using ScoutSport.Models;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace ScoutSport.Forms
 {
@@ -54,7 +51,7 @@ namespace ScoutSport.Forms
             try
             {
                 dgvAvaliacao.DataSource = null;
-                
+
                 var lista = from a in db.Avaliacoes
                             join o in db.Observacoes on a.ObservacaoId equals o.Id
                             join j in db.Jogadores on o.JogadorId equals j.Id

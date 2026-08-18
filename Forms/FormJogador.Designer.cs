@@ -272,7 +272,7 @@
             Controls.Add(lblTitulo);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormJogador";
-            Text = "Volta Redonda Futebol Clube";
+            Text = "ScoutSport";
             ((System.ComponentModel.ISupportInitialize)dgvJogador).EndInit();
             ResumeLayout(false);
             PerformLayout();

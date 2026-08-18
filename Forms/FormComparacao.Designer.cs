@@ -108,7 +108,7 @@
             Controls.Add(cmbJogador1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormComparacao";
-            Text = "Volta Redonda Futebol Clube";
+            Text = "ScoutSport";
             ((System.ComponentModel.ISupportInitialize)dgvComparacao).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int ClubeId { get; set; }
-        public string Nome { get; set; } 
+        public string Nome { get; set; }
         public DateTime? DataNascimento { get; set; }
         public string? Nacionalidade { get; set; }
         public string Posicao { get; set; }
